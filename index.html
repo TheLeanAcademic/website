@@ -9,8 +9,28 @@
 <body>
   <div class="hero">
     <h1>Higgs McCallum</h1>
-    <p class="subtitle">Intelligence, distilled.</p>
+    <p class="subtitle"><span id="typed-text"></span></p>
     <a href="#more" class="button">Learn more</a>
   </div>
+
+  <div id="more" class="more-section">
+    <p>More content coming soon.</p>
+  </div>
+
+  <script>
+    const text = "Intelligence, distilled.";
+    const typedText = document.getElementById("typed-text");
+    let index = 0;
+
+    function typeLetter() {
+      if (index < text.length) {
+        typedText.textContent += text.charAt(index);
+        index++;
+        setTimeout(typeLetter, 60);
+      }
+    }
+
+    window.onload = typeLetter;
+  </script>
 </body>
 </html>
