@@ -52,3 +52,17 @@ h1 {
   text-align: center;
   color: #999;
 }
+
+#typed-text::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  margin-left: 5px;
+  color: #cccccc;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
