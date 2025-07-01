@@ -153,30 +153,32 @@
     }
 
     async function sendMessage() {
-      const message = userInput.value.trim();
-      if (!message) return;
+  const input = document.getElementById('userInput');
+  const message = input.value.trim();
+  if (!message) return;
 
-      appendMessage('user', message);
-      userInput.value = '';
+  appendMessage('user', message);
+  input.value = '';
+  input.blur();  // 👈 Hides the keyboard on mobile
 
-      appendMessage('assistant', '...');
-      const typingEl = chatBox.lastChild;
+  appendMessage('assistant', '...');
+  const typingEl = chatBox.lastChild;
 
-      try {
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message })
-        });
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message })
+    });
 
-        const data = await res.json();
-        typingEl.textContent = data.reply || '[No response]';
-      } catch (err) {
-        typingEl.textContent = '[Error contacting assistant]';
-      }
+    const data = await res.json();
+    typingEl.textContent = data.reply || '[No response]';
+  } catch (err) {
+    typingEl.textContent = '[Error contacting assistant]';
+  }
 
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
   </script>
 </body>
 </html>
