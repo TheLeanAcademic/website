@@ -1,73 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Chat with Higgs AI</title>
   <link rel="stylesheet" href="styles.css">
   <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Helvetica Neue', sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
     .chat-container {
-      max-width: 600px;
-      margin: auto;
-      padding: 2rem;
-      background: #111;
-      border-radius: 10px;
-    }
-    .chat-box {
-      height: 60vh;
-      overflow-y: auto;
-      margin-bottom: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 800px;
+      margin: 0 auto;
       padding: 1rem;
-      background: #222;
-      border-radius: 6px;
-      color: #eee;
     }
+
+    .chat-box {
+      flex: 1;
+      overflow-y: auto;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1rem;
+      background-color: #111;
+      margin-bottom: 1rem;
+    }
+
+    .message {
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+
+    .user {
+      color: #00d4ff;
+      text-align: right;
+    }
+
+    .assistant {
+      color: #ccc;
+      text-align: left;
+    }
+
     .chat-input {
       display: flex;
+      gap: 0.5rem;
     }
+
     .chat-input input {
       flex: 1;
       padding: 0.75rem;
-      border: none;
-      border-radius: 4px 0 0 4px;
+      font-size: 1rem;
+      border: 1px solid #333;
+      border-radius: 4px;
+      background-color: #222;
+      color: white;
     }
+
     .chat-input button {
-      padding: 0.75rem;
-      border: none;
-      background: white;
+      padding: 0.75rem 1.2rem;
+      background-color: white;
       color: black;
-      border-radius: 0 4px 4px 0;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .typing {
+      font-style: italic;
+      color: #888;
     }
   </style>
 </head>
 <body>
   <div class="chat-container">
     <h1>Let’s Chat</h1>
-    <div class="chat-box" id="chatBox"></div>
+    <div id="chatBox" class="chat-box"></div>
     <div class="chat-input">
-      <input type="text" id="userInput" placeholder="Type your message..." />
+      <input type="text" id="userInput" placeholder="Type your message..." onkeydown="if(event.key==='Enter') sendMessage()"/>
       <button onclick="sendMessage()">Send</button>
     </div>
   </div>
 
   <script>
+    const chatBox = document.getElementById('chatBox');
+    const userInput = document.getElementById('userInput');
+
+    function appendMessage(sender, text) {
+      const msg = document.createElement('div');
+      msg.className = `message ${sender}`;
+      msg.textContent = text;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
     async function sendMessage() {
-      const input = document.getElementById('userInput');
-      const chatBox = document.getElementById('chatBox');
-      const message = input.value.trim();
+      const message = userInput.value.trim();
       if (!message) return;
 
-      chatBox.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
-      input.value = '';
+      appendMessage('user', message);
+      userInput.value = '';
 
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message })
-      });
+      appendMessage('assistant', '...');
+      const typingEl = chatBox.lastChild;
 
-      const data = await response.json();
-      chatBox.innerHTML += `<div><strong>AI:</strong> ${data.reply}</div>`;
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message })
+        });
+
+        const data = await res.json();
+        typingEl.textContent = data.reply || '[No response]';
+      } catch (err) {
+        typingEl.textContent = '[Error contacting assistant]';
+      }
+
       chatBox.scrollTop = chatBox.scrollHeight;
     }
   </script>
