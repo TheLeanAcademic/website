@@ -6,129 +6,134 @@
   <title>Chat with Higgs AI</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: 'Helvetica Neue', sans-serif;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
+  body {
+    background-color: #ffffff;
+    color: #222;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
 
-    .chat-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 1rem;
-    }
+  .chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
 
-    .chat-box {
-  flex: 1;
-  min-height: 40vh;       /* Enough space to show messages */
-  max-height: 50vh;       /* Prevents it from taking full screen */
-  overflow-y: auto;
-  border: 1px solid #333;
-  border-radius: 8px;
-  padding: 1rem;
-  background-color: #111;
-  margin-bottom: 1rem;
-}
+  .chat-box {
+    flex: 1;
+    min-height: 40vh;
+    max-height: 50vh;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    margin-bottom: 1rem;
+  }
 
-    .message {
-      margin: 1rem 0;
-      line-height: 1.6;
-    }
+  .message {
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
 
-    .user {
-      color: #00d4ff;
-      text-align: right;
-    }
+  .user {
+    color: #0b72ff;
+    text-align: right;
+  }
 
-    .assistant {
-      color: #ccc;
-      text-align: left;
-    }
+  .assistant {
+    color: #444;
+    text-align: left;
+  }
 
-    .chat-input {
-      display: flex;
-      gap: 0.5rem;
-    }
+  .chat-input {
+    display: flex;
+    gap: 0.5rem;
+  }
 
-    .chat-input input {
-      flex: 1;
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: 1px solid #333;
-      border-radius: 4px;
-      background-color: #222;
-      color: white;
-    }
+  .chat-input input {
+    flex: 1;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #222;
+  }
 
-    .chat-input button {
-      padding: 0.75rem 1.2rem;
-      background-color: white;
-      color: black;
-      font-weight: bold;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+  .chat-input button {
+    padding: 0.75rem 1.2rem;
+    background-color: #0b72ff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
 
-    .chat-footer {
-  position: fixed;
-  bottom: env(safe-area-inset-bottom, 0);
-  left: 0;
-  width: 100%;
-  background-color: #000;
-  padding: 0.5rem 1rem;
-  border-top: 1px solid #222;
-  z-index: 10;
-}
+  .chat-footer {
+    position: fixed;
+    bottom: env(safe-area-inset-bottom, 0);
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid #e5e5e5;
+    z-index: 10;
+  }
 
-.input-container {
-  display: flex;
-  align-items: center;
-  border: 1px solid #444;
-  border-radius: 999px;
-  padding: 0.5rem 1rem;
-  background: #111;
-  transition: border-color 0.2s ease;
-  max-width: 800px;
-  margin: 0 auto;
-}
+  .input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    background: #ffffff;
+    transition: border-color 0.2s ease;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
 
-.input-container:focus-within {
-  border-color: #888;
-}
+  .input-container:focus-within {
+    border-color: #aaa;
+  }
 
-.input-container input {
-  flex: 1;
-  border: none;
-  background: transparent;
-  color: white;
-  font-size: 1rem;
-  outline: none;
-  padding: 0.5rem;
-}
+  .input-container input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: #222;
+    font-size: 1rem;
+    outline: none;
+    padding: 0.5rem;
+  }
 
-.icon-button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding-left: 0.5rem;
-  cursor: pointer;
-}
+  .input-container input::placeholder {
+    color: #aaa;
+  }
 
-    .typing {
-      font-style: italic;
-      color: #888;
-    }
-  </style>
+  .icon-button {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-left: 0.5rem;
+    cursor: pointer;
+  }
+
+  .typing {
+    font-style: italic;
+    color: #aaa;
+  }
+</style>
 </head>
 <body>
   <div class="chat-container">
