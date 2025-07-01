@@ -2,40 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0">
   <title>Chat with Higgs AI</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      height: 100%;
+      overflow: hidden;
       background-color: #ffffff;
       color: #222;
-      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      height: 100dvh;
-      width: 100%;
-      overflow: hidden;
     }
 
     .chat-container {
+      width: 100%;
       display: flex;
       flex-direction: column;
-      height: 100%;
-      width: 100%;
-      padding: 1rem;
       box-sizing: border-box;
+      height: 100%;
     }
 
     .chat-box {
-      flex: 1;
       overflow-y: auto;
       padding: 1rem;
       margin-bottom: 1rem;
-      width: 100%;
       box-sizing: border-box;
       min-height: 0;
-      scroll-behavior: smooth;
     }
 
     .message {
@@ -179,6 +173,16 @@
       scrollToBottom();
       setTimeout(() => userInput.focus(), 100);
     }
+
+    function adjustChatBoxHeight() {
+      const footer = document.querySelector('.chat-footer');
+      const footerHeight = footer.offsetHeight;
+      const vh = window.innerHeight;
+      chatBox.style.height = (vh - footerHeight - 32) + 'px'; // 32px for padding
+    }
+
+    window.addEventListener('resize', adjustChatBoxHeight);
+    window.addEventListener('load', adjustChatBoxHeight);
   </script>
 </body>
 </html>
