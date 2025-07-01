@@ -7,21 +7,22 @@
   <link rel="stylesheet" href="styles.css">
   <style>
   body {
-    background-color: #ffffff;
-    color: #222;
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-  }
+  background-color: #ffffff;
+  color: #222;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;     /* ← FIX: use dynamic viewport height */
+  width: 100%;
+  overflow: hidden;   /* Prevent jumping from scrollbars */
+}
 
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;       /* Important: make it full width */
+  height: 100%;      /* OK */
+  width: 100%;
   padding: 1rem;
   box-sizing: border-box;
 }
@@ -33,6 +34,7 @@
   margin-bottom: 1rem;
   width: 100%;
   box-sizing: border-box;
+  min-height: 0;
 }
 
   .message {
