@@ -30,6 +30,7 @@
       margin-bottom: 1rem;
       box-sizing: border-box;
       min-height: 0;
+      /* Height will be set via JS */
     }
 
     .message {
@@ -177,12 +178,21 @@
     function adjustChatBoxHeight() {
       const footer = document.querySelector('.chat-footer');
       const footerHeight = footer.offsetHeight;
-      const vh = window.innerHeight;
-      chatBox.style.height = (vh - footerHeight - 32) + 'px'; // 32px for padding
+      const viewportHeight = window.visualViewport
+        ? window.visualViewport.height
+        : window.innerHeight;
+
+      chatBox.style.height = `${viewportHeight - footerHeight - 32}px`; // 32px = marginBottom + padding
     }
 
-    window.addEventListener('resize', adjustChatBoxHeight);
     window.addEventListener('load', adjustChatBoxHeight);
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', adjustChatBoxHeight);
+      window.visualViewport.addEventListener('scroll', adjustChatBoxHeight); // Android sometimes scrolls instead
+    } else {
+      window.addEventListener('resize', adjustChatBoxHeight);
+    }
   </script>
 </body>
 </html>
