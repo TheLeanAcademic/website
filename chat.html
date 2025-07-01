@@ -78,9 +78,14 @@
     }
 
     .chat-footer {
-  padding: 1rem;
-  border-top: 1px solid #222;
+  position: fixed;
+  bottom: env(safe-area-inset-bottom, 0);
+  left: 0;
+  width: 100%;
   background-color: #000;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid #222;
+  z-index: 10;
 }
 
 .input-container {
@@ -91,6 +96,8 @@
   padding: 0.5rem 1rem;
   background: #111;
   transition: border-color 0.2s ease;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .input-container:focus-within {
