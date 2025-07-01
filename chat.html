@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Chat with Higgs AI</title>
   <link rel="stylesheet" href="styles.css">
   <style>
@@ -26,14 +26,16 @@
     }
 
     .chat-box {
-      flex: 1;
-      overflow-y: auto;
-      border: 1px solid #333;
-      border-radius: 8px;
-      padding: 1rem;
-      background-color: #111;
-      margin-bottom: 1rem;
-    }
+  flex: 1;
+  min-height: 40vh;       /* Enough space to show messages */
+  max-height: 50vh;       /* Prevents it from taking full screen */
+  overflow-y: auto;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #111;
+  margin-bottom: 1rem;
+}
 
     .message {
       margin: 1rem 0;
